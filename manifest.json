@@ -1,6 +1,6 @@
 {
 	"name": "__MSG_extName__",
-	"short_name": "Stylish",
+	"short_name": "Stylish X",
 	"version": "1.7.6",
 	"description": "__MSG_description__",
 	"homepage_url": "https://userstyles.org",
@@ -55,7 +55,6 @@
 	"web_accessible_resources": [
 		"images/128.png"
 	],
-    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCr3yiiN7TIDoaEvh7W34g5YsxfUIGkvVUylq9bm29v8EzULCNIpi74KOBrvprYB6/YAdLjvYmGya1CJfgkuQy3/rZ7gGLSrDk9B1qgsHurhNaCJ0ogfSR50bfYUp0qJlIAgBgZWrVWLogfXbU8x+LFgV8pdMjFuWJgzketxjP6nwIDAQAB",
 	"options_page": "manage.html",
 	"browser_action": {
 		"default_icon": {
