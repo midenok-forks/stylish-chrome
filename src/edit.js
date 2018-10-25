@@ -1653,6 +1653,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			if (request.prefName == "editor.smartIndent") {
 				CodeMirror.setOption("smartIndent", request.value);
 			}
+			break;
+		case "toMozillaFormat":
+			sendResponse({result: toMozillaFormat()});
+			window.close();
+			break;
 	}
 });
 

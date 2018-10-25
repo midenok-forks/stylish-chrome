@@ -1,9 +1,11 @@
 var STYLISH_DUMPFILE_EXTENSION = ".json";
 
 var saveButton = document.getElementById("file-all-styles"),
+    saveButton2 = document.getElementById("file-all-styles2"),
     loadButton = document.getElementById("unfile-all-styles");
 
 saveButton.addEventListener('click', onSaveToFileClick);
+saveButton2.addEventListener('click', onSaveToFileClick2);
 loadButton.addEventListener('click', onLoadFromFileClick);
 
 function onSaveToFileClick(){
@@ -15,6 +17,12 @@ function onSaveToFileClick(){
             });
         }
     })
+}
+
+function onSaveToFileClick2(){
+    getStyles({}, function(styles){
+        exportStyles(styles);
+    });
 }
 
 function onLoadFromFileClick(){

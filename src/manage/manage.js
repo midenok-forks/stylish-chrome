@@ -27,6 +27,27 @@ function showStyles(styles) {
 	}
 }
 
+function exportStyles(styles) {
+	styles.map(dumpStyle);
+}
+
+function dumpStyle(style) {
+	var e = template.style.cloneNode(true);
+	var editLink = e.querySelector(".style-edit-link");
+	editLink.setAttribute("href", editLink.getAttribute("href") + style.id);
+	var url = editLink.href;
+	chrome.windows.create({url: url, state: "minimized"}, function (w) {
+		chrome.tabs.onUpdated.addListener(function (tabId, info) {
+			if (info.status === 'complete' && tabId === w.tabs[0].id) {
+				chrome.tabs.sendMessage(tabId, {method: "toMozillaFormat", style: style}, function (response) {
+					console.log(response.result);
+				});
+				chrome.tabs.onUpdated.removeListener(arguments.callee);
+			}
+		});
+	});
+}
+
 function createStyleElement(style) {
 	var e = template.style.cloneNode(true);
 	e.setAttribute("class", style.enabled ? "enabled" : "disabled");
