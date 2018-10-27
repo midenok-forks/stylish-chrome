@@ -1,13 +1,14 @@
 var STYLISH_DUMP_FILE_EXT     = ".txt";
 var STYLISH_DEFAULT_SAVE_NAME = "stylish-mm-dd-yyy" + STYLISH_DUMP_FILE_EXT;
 
-function saveAsFile(text, fileName, dialog) {
-    fileName = fileName || STYLISH_DEFAULT_SAVE_NAME;
-    dialog = typeof dialog === "boolean" ? dialog : true;
-
+function saveAsFile(text, fileName, options) {
+    var fileContent = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+    options = options || {};
+    options.saveAs = typeof options.saveAs === "boolean" ? options.saveAs : true;
+    options.filename = fileName || STYLISH_DEFAULT_SAVE_NAME;
+    options.url = fileContent;
     return new Promise(function(resolve){
-        var fileContent = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
-        chrome.downloads.download({filename: fileName, saveAs: true, url: fileContent}, resolve)
+        chrome.downloads.download(options, resolve)
     });
 }
 

@@ -40,12 +40,19 @@ function dumpStyle(style) {
 		chrome.tabs.onUpdated.addListener(function (tabId, info) {
 			if (info.status === 'complete' && tabId === w.tabs[0].id) {
 				chrome.tabs.sendMessage(tabId, {method: "toMozillaFormat", style: style}, function (response) {
-					console.log(response.result);
+					saveStyle(response);
 				});
 				chrome.tabs.onUpdated.removeListener(arguments.callee);
 			}
 		});
 	});
+}
+
+function saveStyle(resp) {
+	console.log(resp.result);
+	console.log(resp.request.style.name);
+	console.log(resp.request.style.id);
+	saveAsFile(resp.result, resp.request.style.name + ".txt", {saveAs: false, conflictAction:  "overwrite"});
 }
 
 function createStyleElement(style) {

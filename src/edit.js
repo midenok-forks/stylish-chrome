@@ -1655,7 +1655,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			}
 			break;
 		case "toMozillaFormat":
-			sendResponse({result: toMozillaFormat()});
+			sendResponse({request: request, result: toMozillaFormat()});
 			window.close();
 			break;
 	}
