@@ -8,15 +8,32 @@ saveButton.addEventListener('click', onSaveToFileClick);
 saveButton2.addEventListener('click', onSaveToFileClick2);
 loadButton.addEventListener('click', onLoadFromFileClick);
 
-function onSaveToFileClick(){
-    chrome.permissions.request({permissions: ['downloads']}, function(granted){
-        if (granted){
-            getStyles({}, function(styles){
-                var text = JSON.stringify(styles);
-                saveAsFile(text, generateFileName());
-            });
-        }
-    })
+function download(filename, text) {
+
+    if (typeof InstallTrigger !== 'undefined') {
+        const uriContent = "data:application/octet-stream," + encodeURIComponent(text);
+        window.open(uriContent);
+    } else {
+        var element = document.createElement('a');
+
+        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.target = "_blank";
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+}
+
+function onSaveToFileClick() {
+    getStyles({}, function (styles) {
+        const text = JSON.stringify(styles);
+        download(generateFileName(), text);
+    });
 }
 
 function onSaveToFileClick2(){
